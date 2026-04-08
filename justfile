@@ -2,4 +2,4 @@ default:
   just --list
 
 serve-docs:
-  uv run zensical serve -o
+  uvx zensical serve -o -a localhost:8001
