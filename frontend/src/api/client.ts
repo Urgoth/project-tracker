@@ -1,4 +1,4 @@
-import { apiConfig } from './config'
+import { apiConfig } from '@/config/env'
 
 export class ApiClient {
   constructor(private readonly baseUrl: string) {}

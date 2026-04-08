@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { apiConfig } from '../api/config'
+import { apiConfig } from '@/config/env'
 
 const apiBaseUrl = apiConfig.baseUrl
 </script>
