@@ -5,9 +5,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.router import api_router
+from app.infrastructure.persistence import init_db
 from app.infrastructure.config.logger import setup_logger
 from app.infrastructure.config.settings import get_settings
 
+setup_logger()
 logger = structlog.get_logger(__name__)
 settings = get_settings()
 
@@ -17,8 +19,8 @@ app = FastAPI()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 1. Startup: This runs BEFORE the app starts taking requests
-    logger = structlog.get_logger(__name__)
     logger.info("logging_initialized", status="success")
+    init_db()
 
     yield
 

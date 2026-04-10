@@ -20,6 +20,7 @@ app/
     routes/          # HTTP route handlers
   infrastructure/
     config/          # Settings and runtime configuration
+    persistence/     # Database engine, sessions, model base conventions
   main.py            # FastAPI bootstrap and app creation
 ```
 
@@ -67,7 +68,12 @@ PT_APP_ENV=DEVELOP
 PT_DEBUG=true
 PT_API_HOST=localhost
 PT_API_PORT=8789
+
 PT_DATABASE_URL=postgresql+psycopg://project_tracker:project_tracker@db:5432/project_tracker
+PT_POSTGRES_DB=project_tracker
+PT_POSTGRES_USER=project_tracker
+PT_POSTGRES_PASSWORD=project_tracker
+
 PT_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 ```
 
@@ -89,3 +95,16 @@ PT_LOG_DIR=/tmp/project-tracker/logs
 - Invalid application config fails at startup
 - CORS is configurable for frontend-backend communication
 - Logging writes to console and file
+
+## Persistence
+
+Database integration lives under `app.infrastructure.persistence`.
+
+It provides:
+
+- SQLModel engine setup
+- session dependency for FastAPI routes/services
+- shared model conventions
+- database connectivity checks
+
+Current development target is PostgreSQL via Docker Compose.
