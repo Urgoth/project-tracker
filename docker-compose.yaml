@@ -4,15 +4,16 @@ services:
     container_name: project-tracker-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${PT_POSTGRES_DB}
+      POSTGRES_USER: ${PT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${PT_POSTGRES_PASSWORD}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${PT_POSTGRES_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test:
+        ["CMD-SHELL", "pg_isready -U ${PT_POSTGRES_USER} -d ${PT_POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,13 +25,21 @@ services:
     container_name: project-tracker-backend
     restart: unless-stopped
     environment:
-      DATABASE_URL: ${DATABASE_URL}
-      BACKEND_PORT: ${BACKEND_PORT}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      PT_DATABASE_URL: ${PT_DATABASE_URL}
+      PT_API_PORT: ${PT_API_PORT}
+      PT_API_HOST: localhost
+      PT_CORS_ALLOWED_ORIGINS: ${PT_CORS_ALLOWED_ORIGINS}
+      PT_APP_ENV: ${PT_APP_ENV}
+      PT_DEBUG: ${PT_DEBUG}
     ports:
-      - "${BACKEND_PORT}:8000"
+      - "${PT_API_PORT}:8000"
     volumes:
       - ./backend:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:${PT_API_PORT}/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       db:
         condition: service_healthy

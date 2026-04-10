@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     api_host: str = "localhost"
     api_port: int = 8789
 
+    postgres_db: str = "project_tracker"
+    postgres_user: str = "project_tracker"
+    postgres_password: str = "project_tracker"
     database_url: str = Field(
         default="postgresql+psycopg://project_tracker:project_tracker@db:5432/project_tracker",
     )

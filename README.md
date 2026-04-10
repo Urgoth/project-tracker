@@ -49,5 +49,5 @@ Source code is mounted into the containers:
 ### Configuration
 
 - The frontend talks to the backend through `VITE_API_BASE_URL`
-- The backend talks to the database through `DATABASE_URL`
+- The backend talks to the database through `PT_DATABASE_URL`
 - Environment variables can be changed in `.env`
