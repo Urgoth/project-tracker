@@ -41,3 +41,51 @@ app/
     config/          # Settings/configuration
   main.py            # App bootstrap
 ```
+
+## Configuration
+
+The backend uses environment variables for configuration.
+
+### Setup
+
+Copy the example file:
+
+```bash
+cp .env.example .env
+```
+
+Adjust values if needed.
+
+### Application runtime settings
+
+Application settings are loaded via `app.infrastructure.config.settings`.
+
+Supported variables:
+
+```env
+PT_APP_ENV=DEVELOP
+PT_DEBUG=true
+PT_API_HOST=localhost
+PT_API_PORT=8789
+PT_DATABASE_URL=postgresql+psycopg://project_tracker:project_tracker@db:5432/project_tracker
+PT_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+```
+
+Logging
+
+Logging is configured separately via `app.infrastructure.config.logger` to avoid circular dependencies.
+
+Supported variables:
+
+```env
+PT_LOG_LEVEL=DEBUG
+PT_LOG_DIR=/tmp/project-tracker/logs
+```
+
+### Notes
+
+- Application runtime settings are loaded via `app.infrastructure.config.settings`
+- Logging is configured separately via environment variables in `app.infrastructure.config.logger`
+- Invalid application config fails at startup
+- CORS is configurable for frontend-backend communication
+- Logging writes to console and file
