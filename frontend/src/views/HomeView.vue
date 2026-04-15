@@ -14,6 +14,8 @@
 
 <script setup lang="ts">
 import { apiConfig } from '@/config/env'
+import * as Api from '@/api'
 
+console.log(Api)
 const apiBaseUrl = apiConfig.baseUrl
 </script>
