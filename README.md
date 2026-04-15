@@ -51,3 +51,21 @@ Source code is mounted into the containers:
 - The frontend talks to the backend through `VITE_API_BASE_URL`
 - The backend talks to the database through `PT_DATABASE_URL`
 - Environment variables can be changed in `.env`
+
+## openapi ts generation setup
+
+### Backend tasks
+
+1. Explicitly configure `openapi_url="/openapi.json"` in FastAPI app.
+2. Add API metadata: title/version.
+3. Add stable `operation_id`s to public routes.
+4. Verify `/openapi.json` and `/docs`.
+
+### Frontend tasks
+
+1. Install `@hey-api/openapi-ts`.
+2. Add `openapi-ts.config.ts`.
+3. Add `npm run api:generate`.
+4. Generate client into `src/api/client/generated`.
+5. Add `srcapi/index.ts`.
+6. Add one real import usage in app code.
