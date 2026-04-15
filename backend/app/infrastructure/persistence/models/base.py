@@ -12,7 +12,9 @@ def utcnow() -> datetime:
 
 class TimestampedModel(SQLModel):
     created_at: datetime = Field(default_factory=utcnow, nullable=False)
-    updated_at: datetime = Field(default_factory=utcnow, nullable=False)
+    updated_at: datetime = Field(
+        default_factory=utcnow, nullable=False, sa_column_kwargs={"onupdate": utcnow}
+    )
 
 
 class UUIDPrimaryKeyModel(SQLModel):
