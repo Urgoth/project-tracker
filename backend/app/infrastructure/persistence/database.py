@@ -1,6 +1,6 @@
 from collections.abc import Generator
 
-from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel import Session, SQLModel, create_engine, text
 
 from app.infrastructure.config.settings import get_settings
 
@@ -22,7 +22,7 @@ def init_db() -> None:
 def check_db_connection() -> bool:
     try:
         with Session(engine) as session:
-            session.exec("SELECT 1")
+            session.exec(text("SELECT 1"))
         return True
     except Exception:
         return False

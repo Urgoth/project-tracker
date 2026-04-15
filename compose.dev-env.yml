@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17
+    container_name: project-tracker-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${PT_POSTGRES_DB}
+      POSTGRES_USER: ${PT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${PT_POSTGRES_PASSWORD}
+    ports:
+      - "${PT_POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${PT_POSTGRES_USER} -d ${PT_POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

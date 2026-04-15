@@ -1,11 +1,9 @@
-from typing import Optional
+from typing import List, Optional
 from enum import Enum
 from uuid import UUID
 
-from pydantic import BaseModel
-from app.infrastructure.persistence.models.customer import Customer
-from sqlmodel import Field, Relationship
-from ..base import TimestampedModel, UUIDPrimaryKeyModel # Assuming base.py is in the same dir
+from sqlmodel import Field, Relationship, SQLModel, table
+from .base import TimestampedModel, UUIDPrimaryKeyModel # Assuming base.py is in the same dir
 from datetime import datetime
 
 class ProjectStatus(str, Enum):
@@ -15,7 +13,7 @@ class ProjectStatus(str, Enum):
     COMPLETED = "completed"
     CANCELLED = "cancelled"
 
-class Project(UUIDPrimaryKeyModel, TimestampedModel, BaseModel, table=True):
+class Project(UUIDPrimaryKeyModel, TimestampedModel, SQLModel, table=True):
     # Note: created_at and updated_at are inherited from TimestampedModel
     # Note: id (UUID) is inherited from UUIDPrimaryKeyModel
     # Core Information
@@ -39,5 +37,28 @@ class Project(UUIDPrimaryKeyModel, TimestampedModel, BaseModel, table=True):
     )
     
     # Relationship back to Customer
-    customer: Optional[Customer] = Relationship(back_populates="projects")
+    customer: Optional["Customer"] = Relationship(back_populates="projects")
 
+class CustomerType(str, Enum):
+    INDIVIDUAL = "individual"
+    CORPORATE = "corporate"
+    GOVERNMENT = "government"
+    NON_PROFIT = "non_profit"
+
+class Customer(UUIDPrimaryKeyModel, TimestampedModel, SQLModel, table=True):
+    # Core Identity
+    name: str = Field(index=True, nullable=False)
+    
+    # Classification
+    customer_type: CustomerType = Field(
+        default=CustomerType.CORPORATE,
+        description="Categorization for reporting and billing logic"
+    )
+    
+    # Internal Metadata
+    is_active: bool = Field(default=True, index=True)
+    internal_notes: Optional[str] = Field(default=None)
+
+    # Relationships
+    # This links the customer to their various projects
+    projects: List["Project"] = Relationship(back_populates="customer")
