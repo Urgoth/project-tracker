@@ -15,6 +15,24 @@ export type HttpValidationError = {
 };
 
 /**
+ * HealthResponse
+ */
+export type HealthResponse = {
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Service
+     */
+    service: string;
+    /**
+     * Timestamp
+     */
+    timestamp: string;
+};
+
+/**
  * Project
  */
 export type Project = {
@@ -109,13 +127,9 @@ export type HealthCheckHealthGetData = {
 
 export type HealthCheckHealthGetResponses = {
     /**
-     * Response Health Check Health Get
-     *
      * Successful Response
      */
-    200: {
-        [key: string]: string;
-    };
+    200: HealthResponse;
 };
 
 export type HealthCheckHealthGetResponse = HealthCheckHealthGetResponses[keyof HealthCheckHealthGetResponses];

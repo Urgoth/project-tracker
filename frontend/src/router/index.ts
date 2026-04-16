@@ -18,6 +18,11 @@ const router = createRouter({
       props: true,
     },
     {
+      path: '/integration-check',
+      name: 'integration-check',
+      component: () => import('@/views/IntegrationCheckView.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: NotFoundView,

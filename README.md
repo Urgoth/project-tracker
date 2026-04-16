@@ -69,3 +69,13 @@ Source code is mounted into the containers:
 4. Generate client into `src/api/client/generated`.
 5. Add `srcapi/index.ts`.
 6. Add one real import usage in app code.
+
+## Verify frontend-backend integration
+
+1. Start backend and frontend in local dev setup
+2. Ensure frontend has `VITE_API_BASE_URL=http://localhost:8000`
+3. Open frontend in browser
+4. Verify integration page shows:
+   - loading state first
+   - success response from `/api/v1/system/health`
+   - error state when backend is stopped
