@@ -1,15 +1,27 @@
+from datetime import datetime, UTC
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import text
 from sqlmodel import Session
+from pydantic import BaseModel
 
 from app.infrastructure.persistence import database, get_session
 
 router = APIRouter(prefix="/health", tags=["health"])
 
 
-@router.get("")
-def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+class HealthResponse(BaseModel):
+    status: str
+    service: str
+    timestamp: str
+
+
+@router.get("", response_model=HealthResponse)
+def health_check() -> HealthResponse:
+    return HealthResponse(
+        status="ok",
+        service="project-tracker-backend",
+        timestamp=datetime.now(UTC).isoformat(),
+    )
+
 
 @router.get("/db")
 def database_health(session: Session = Depends(get_session)) -> dict[str, str]:

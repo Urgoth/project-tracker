@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from datetime import datetime
 from enum import Enum
 from typing import Optional
@@ -18,6 +16,7 @@ if TYPE_CHECKING:
     from .resource_link import ResourceLink
     from .requirement import Requirement
     from .workitem import WorkItem
+    from .customer import Customer
 
 
 class ProjectStatus(str, Enum):
@@ -61,32 +60,3 @@ class Project(UUIDPrimaryKeyModel, TimestampedModel, SQLModel, table=True):
     resource_links: list["ResourceLink"] = Relationship(back_populates="project")
     requirements: list["Requirement"] = Relationship(back_populates="project")
     work_items: list["WorkItem"] = Relationship(back_populates="project")
-
-
-class CustomerType(str, Enum):
-    INDIVIDUAL = "individual"
-    CORPORATE = "corporate"
-    GOVERNMENT = "government"
-    NON_PROFIT = "non_profit"
-
-
-class Customer(UUIDPrimaryKeyModel, TimestampedModel, SQLModel, table=True):
-    # Core Identity
-    name: str = Field(index=True, nullable=False)
-
-    # Classification
-    customer_type: CustomerType = Field(
-        default=CustomerType.CORPORATE,
-        description="Categorization for reporting and billing logic",
-    )
-
-    # Internal Metadata
-    is_active: bool = Field(default=True, index=True)
-    internal_notes: Optional[str] = Field(default=None)
-
-    # Relationships
-    # This links the customer to their various projects
-    projects: list["Project"] = Relationship(
-        back_populates="customers",
-        link_model=ProjectCustomerLink,
-    )
