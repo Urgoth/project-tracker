@@ -62,7 +62,9 @@ def test_settings_read_environment_variables(monkeypatch: pytest.MonkeyPatch):
 
 
 @pytest.mark.parametrize("value", [0, 70000])
-def test_invalid_api_port_raises_validation_error(value: int, monkeypatch: pytest.MonkeyPatch):
+def test_invalid_api_port_raises_validation_error(
+    value: int, monkeypatch: pytest.MonkeyPatch
+):
     monkeypatch.setenv("PT_API_PORT", str(value))
 
     with pytest.raises(ValidationError) as exc_info:
@@ -98,7 +100,9 @@ def test_invalid_app_env_raises_validation_error(monkeypatch: pytest.MonkeyPatch
     assert "app_env" in str(exc_info.value)
 
 
-def test_prod_with_debug_enabled_raises_validation_error(monkeypatch: pytest.MonkeyPatch):
+def test_prod_with_debug_enabled_raises_validation_error(
+    monkeypatch: pytest.MonkeyPatch,
+):
     monkeypatch.setenv("PT_APP_ENV", "PROD")
     monkeypatch.setenv("PT_DEBUG", "true")
 

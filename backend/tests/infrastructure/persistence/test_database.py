@@ -7,6 +7,7 @@ from app.main import app
 from app.infrastructure.config.settings import Settings
 from app.infrastructure.persistence.database import get_session
 
+
 def test_settings_load_postgres_database_url(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv(
         "PT_DATABASE_URL",
@@ -15,7 +16,11 @@ def test_settings_load_postgres_database_url(monkeypatch: pytest.MonkeyPatch) ->
 
     settings = Settings()
 
-    assert settings.database_url == "postgresql+psycopg://user:pass@db:5432/project_tracker"
+    assert (
+        settings.database_url
+        == "postgresql+psycopg://user:pass@db:5432/project_tracker"
+    )
+
 
 def test_get_session_yields_session() -> None:
     generator = get_session()
@@ -27,11 +32,13 @@ def test_get_session_yields_session() -> None:
         session.close()
         generator.close()
 
+
 def test_health_db_endpoint_exists() -> None:
     client = TestClient(app)
     response = client.get("/health/db")
 
     assert response.status_code in {200, 503}
+
 
 def test_health_db_returns_ok(monkeypatch) -> None:
     from app.infrastructure.persistence import database
@@ -46,6 +53,7 @@ def test_health_db_returns_ok(monkeypatch) -> None:
 
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
+
 
 def test_health_db_returns_503_on_failure(monkeypatch) -> None:
     from app.infrastructure.persistence import database

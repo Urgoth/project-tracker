@@ -1,3 +1,5 @@
+mod tools
+
 default:
   just --list
 

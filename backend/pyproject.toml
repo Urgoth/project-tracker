@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 
 dependencies = [
   "fastapi>=0.135.3",
+  "httpx>=0.28.1",
   "psycopg[binary]>=3.3.3",
   "pydantic>=2.12.5",
   "pydantic-settings>=2.13.1",
@@ -17,7 +18,30 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "alembic>=1.18.4",
-    "httpx>=0.28.1",
-    "pytest>=9.0.3",
+  "alembic>=1.18.4",
+  "black>=26.3.1",
+  "mypy>=1.20.1",
+  "pytest>=9.0.3",
+  "ruff>=0.15.11",
 ]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_untyped_defs = false
+check_untyped_defs = true
+no_implicit_optional = true

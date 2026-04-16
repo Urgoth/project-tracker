@@ -5,6 +5,7 @@ import pytest
 
 import app.infrastructure.config.logger as logger_module
 
+
 @pytest.fixture
 def reset_root_logger_state():
     root_logger = logging.getLogger()
