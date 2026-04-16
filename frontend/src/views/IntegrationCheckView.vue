@@ -18,8 +18,7 @@ async function load() {
     payload.value = response.data
     state.value = 'success'
   } catch (error) {
-    errorMessage.value =
-      error instanceof Error ? error.message : 'Unknown request error'
+    errorMessage.value = error instanceof Error ? error.message : 'Unknown request error'
     state.value = 'error'
   }
 }
