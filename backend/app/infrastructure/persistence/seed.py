@@ -1,13 +1,14 @@
 from sqlmodel import Session, text
 
 from app.infrastructure.persistence.database import engine
-from app.infrastructure.persistence.models.project import (
+from app.infrastructure.persistence.models import (
     Customer,
     CustomerType,
     Project,
     ProjectStatus,
 )
 import structlog
+
 logger = structlog.get_logger(__name__)
 
 

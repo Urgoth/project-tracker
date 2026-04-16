@@ -1,4 +1,5 @@
-from .project import Customer, CustomerType, Project, ProjectStatus
+from .project import Project, ProjectStatus
+from .customer import Customer, CustomerType
 from .requirement import Requirement, RequirementStatus
 from .resource_link import ResourceLink, ResourceLinkCategory
 from .workitem import WorkItem, WorkItemStatus, WorkItemType
