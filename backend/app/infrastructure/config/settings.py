@@ -6,6 +6,7 @@ from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from enum import Enum
 
+
 class Environment(str, Enum):
     DEVELOP = "DEVELOP"
     TEST = "TEST"
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
-        env_prefix='PT_',
+        env_prefix="PT_",
     )
 
     app_name: str = "project-tracker"
@@ -75,8 +76,11 @@ class Settings(BaseSettings):
         return self
 
     def cors_origins_list(self) -> list[str]:
-        return [origin.strip() for origin in self.cors_allowed_origins.split(",") if origin.strip()]
-
+        return [
+            origin.strip()
+            for origin in self.cors_allowed_origins.split(",")
+            if origin.strip()
+        ]
 
 
 @lru_cache

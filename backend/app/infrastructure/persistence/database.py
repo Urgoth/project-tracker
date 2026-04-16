@@ -12,12 +12,15 @@ engine = create_engine(
     pool_pre_ping=True,
 )
 
+
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
         yield session
 
+
 def init_db() -> None:
     SQLModel.metadata.create_all(engine)
+
 
 def check_db_connection() -> bool:
     try:
