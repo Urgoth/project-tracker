@@ -1,6 +1,17 @@
 ---
 title: Roadmap
+status: draft
+last reviewed: 2026-04-16
 ---
+
+- [ ] Milestone 0 — [Foundation](#milestone-0-foundation)
+- [ ] Milestone 1 — [Project Core Slice](#milestone-1-project-core-slice)
+- [ ] Milestone 2 — [Resource Links Slice](#milestone-2-resource-links-slice)
+- [ ] Milestone 3 — [Planning Core Slice](#milestone-3-planning-core-slice)
+- [ ] Milestone 4 — [Timeline & Dependencies Slice](#milestone-4-timeline-dependencies-slice)
+- [ ] Milestone 5 — [Requirements Slice](#milestone-5-requirements-slice)
+- [ ] Milestone 6 — [UX Consolidation Slice](#milestone-6-ux-consolidation-slice)
+- [ ] Milestone 7 — [Extensibility Foundation](#milestone-7-extensibility-foundation)
 
 ## Roadmap Strategy
 
